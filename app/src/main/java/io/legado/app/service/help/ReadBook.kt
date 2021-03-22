@@ -1,7 +1,7 @@
 package io.legado.app.service.help
 
 import androidx.lifecycle.MutableLiveData
-import com.hankcs.hanlp.HanLP
+import com.github.liuyueyi.quick.transfer.ChineseUtils
 import io.legado.app.constant.BookType
 import io.legado.app.data.appDb
 import io.legado.app.data.entities.*
@@ -71,6 +71,9 @@ object ReadBook {
             appDb.bookSourceDao.getBookSource(book.origin)?.let {
                 bookSource = it
                 webBook = WebBook(it)
+                if (book.getImageStyle().isNullOrBlank()) {
+                    book.setImageStyle(it.getContentRule().imageStyle)
+                }
             } ?: let {
                 bookSource = null
                 webBook = null
@@ -404,8 +407,8 @@ object ReadBook {
             ImageProvider.clearOut(durChapterIndex)
             if (chapter.index in durChapterIndex - 1..durChapterIndex + 1) {
                 chapter.title = when (AppConfig.chineseConverterType) {
-                    1 -> HanLP.convertToSimplifiedChinese(chapter.title)
-                    2 -> HanLP.convertToTraditionalChinese(chapter.title)
+                    1 -> ChineseUtils.t2s(chapter.title)
+                    2 -> ChineseUtils.s2t(chapter.title)
                     else -> chapter.title
                 }
                 val contents = contentProcessor!!.getContent(book, chapter.title, content)
@@ -413,7 +416,7 @@ object ReadBook {
                     durChapterIndex -> {
                         curTextChapter =
                             ChapterProvider.getTextChapter(
-                                book, chapter, contents, chapterSize, imageStyle
+                                book, chapter, contents, chapterSize
                             )
                         if (upContent) callBack?.upContent(resetPageOffset = resetPageOffset)
                         callBack?.upView()
@@ -423,14 +426,14 @@ object ReadBook {
                     durChapterIndex - 1 -> {
                         prevTextChapter =
                             ChapterProvider.getTextChapter(
-                                book, chapter, contents, chapterSize, imageStyle
+                                book, chapter, contents, chapterSize
                             )
                         if (upContent) callBack?.upContent(-1, resetPageOffset)
                     }
                     durChapterIndex + 1 -> {
                         nextTextChapter =
                             ChapterProvider.getTextChapter(
-                                book, chapter, contents, chapterSize, imageStyle
+                                book, chapter, contents, chapterSize
                             )
                         if (upContent) callBack?.upContent(1, resetPageOffset)
                     }
@@ -443,8 +446,6 @@ object ReadBook {
             success?.invoke()
         }
     }
-
-    private val imageStyle get() = webBook?.bookSource?.ruleContent?.imageStyle
 
     fun pageAnim(): Int {
         book?.let {
