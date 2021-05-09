@@ -56,8 +56,13 @@
             android:title="UserAgent" />
 
         <io.legado.app.ui.widget.prefs.SwitchPreference
-            android:defaultValue="true"
-            android:key="preDownload"
+            android:key="highBrush"
+            android:defaultValue="false"
+            android:title="@string/high_brush_title"
+            android:summary="@string/high_brush_summary" />
+
+        <io.legado.app.ui.widget.prefs.Preference
+            android:key="preDownloadNum"
             android:title="@string/pre_download"
             android:summary="@string/pre_download_s" />
 
