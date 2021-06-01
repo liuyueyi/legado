@@ -1,6 +1,5 @@
 package io.legado.app.lib.webdav
 
-import io.legado.app.help.http.mkCol
 import io.legado.app.help.http.newCall
 import io.legado.app.help.http.okHttpClient
 import io.legado.app.help.http.text
@@ -64,17 +63,19 @@ class WebDav(urlStr: String) {
     /**
      * 列出当前路径下的文件
      *
-     * @param propsList 指定列出文件的哪些属性
      * @return 文件列表
      */
-    suspend fun listFiles(propsList: ArrayList<String> = ArrayList()): List<WebDav> {
-        propFindResponse(propsList)?.let { body ->
+    suspend fun listFiles(): List<WebDav> {
+        propFindResponse()?.let { body ->
             return parseDir(body)
         }
         return ArrayList()
     }
 
-    private suspend fun propFindResponse(propsList: ArrayList<String>): String? {
+    /**
+     * @param propsList 指定列出文件的哪些属性
+     */
+    private suspend fun propFindResponse(propsList: List<String> = emptyList()): String? {
         val requestProps = StringBuilder()
         for (p in propsList) {
             requestProps.append("<a:").append(p).append("/>\n")
@@ -91,6 +92,7 @@ class WebDav(urlStr: String) {
                 okHttpClient.newCall {
                     url(url)
                     addHeader("Authorization", Credentials.basic(auth.user, auth.pass))
+                    addHeader("Depth", "1")
                     // 添加RequestBody对象，可以只返回的属性。如果设为null，则会返回全部属性
                     // 注意：尽量手动指定需要返回的属性。若返回全部属性，可能后由于Prop.java里没有该属性名，而崩溃。
                     val requestBody = requestPropsStr.toRequestBody("text/plain".toMediaType())
@@ -149,7 +151,7 @@ class WebDav(urlStr: String) {
             return kotlin.runCatching {
                 okHttpClient.newCall {
                     url(url)
-                    mkCol()
+                    method("MKCOL", null)
                     addHeader("Authorization", Credentials.basic(auth.user, auth.pass))
                 }.close()
             }.isSuccess
@@ -189,12 +191,13 @@ class WebDav(urlStr: String) {
         val url = httpUrl
         val auth = HttpAuth.auth
         if (url != null && auth != null) {
-            okHttpClient.newCall {
-                url(url)
-                put(fileBody)
-                addHeader("Authorization", Credentials.basic(auth.user, auth.pass))
-            }.close()
-            return true
+            return kotlin.runCatching {
+                okHttpClient.newCall {
+                    url(url)
+                    put(fileBody)
+                    addHeader("Authorization", Credentials.basic(auth.user, auth.pass))
+                }.close()
+            }.isSuccess
         }
         return false
     }
@@ -205,12 +208,13 @@ class WebDav(urlStr: String) {
         val url = httpUrl
         val auth = HttpAuth.auth
         if (url != null && auth != null) {
-            okHttpClient.newCall {
-                url(url)
-                put(fileBody)
-                addHeader("Authorization", Credentials.basic(auth.user, auth.pass))
-            }.close()
-            return true
+            return kotlin.runCatching {
+                okHttpClient.newCall {
+                    url(url)
+                    put(fileBody)
+                    addHeader("Authorization", Credentials.basic(auth.user, auth.pass))
+                }.close()
+            }.isSuccess
         }
         return false
     }
@@ -219,10 +223,12 @@ class WebDav(urlStr: String) {
         val url = httpUrl
         val auth = HttpAuth.auth
         if (url != null && auth != null) {
-            return okHttpClient.newCall {
-                url(url)
-                addHeader("Authorization", Credentials.basic(auth.user, auth.pass))
-            }.byteStream()
+            return kotlin.runCatching {
+                okHttpClient.newCall {
+                    url(url)
+                    addHeader("Authorization", Credentials.basic(auth.user, auth.pass))
+                }.byteStream()
+            }.getOrNull()
         }
         return null
     }
