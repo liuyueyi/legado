@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string-array name="book_type">
-		<item>Text</item>
-		<item>Audio</item>
+		<item>Texto</item>
+		<item>Áudio</item>
 	</string-array>
 
 	<string-array name="group_style">
-		<item>Tab</item>
-		<item>Folder</item>
+		<item>Aba</item>
+		<item>Pasta</item>
 	</string-array>
 
 	<string-array name="indent">
@@ -31,25 +31,25 @@
 	</string-array>
 
 	<string-array name="theme_mode">
-		<item>Follow system</item>
-		<item>Bright mode</item>
-		<item>Dark mode</item>
-		<item>E-Ink mode</item>
+		<item>Adaptar do sistema</item>
+		<item>Tema Claro</item>
+		<item>Tema Escuro</item>
+		<item>Tema E-Ink</item>
 	</string-array>
 
 	<string-array name="NavBarColors">
-		<item>Auto</item>
-		<item>Black</item>
-		<item>White</item>
-		<item>Following</item>
+		<item>Autom.</item>
+		<item>Escuro</item>
+		<item>Claro</item>
+		<item>Adaptado</item>
 	</string-array>
 
 	<string-array name="screen_time_out">
-		<item>Default</item>
+		<item>Padrão</item>
 		<item>1 min</item>
 		<item>2 min</item>
 		<item>3 min</item>
-		<item>Always</item>
+		<item>Sempre</item>
 	</string-array>
 
 	<string-array name="screen_direction_title">
@@ -60,56 +60,56 @@
 	</string-array>
 
 	<string-array name="icon_names">
-		<item>iconMain</item>
-		<item>icon1</item>
-		<item>icon2</item>
-		<item>icon3</item>
-		<item>icon4</item>
-		<item>icon5</item>
-		<item>icon6</item>
+		<item>íconePrincipal</item>
+		<item>ícone1</item>
+		<item>ícone2</item>
+		<item>ícone3</item>
+		<item>ícone4</item>
+		<item>ícone5</item>
+		<item>ícone6</item>
 	</string-array>
 
 	<string-array name="chinese_mode">
-		<item>Off</item>
-		<item>Traditional to Simplified</item>
-		<item>Simplified to Traditional</item>
+		<item>Desativado</item>
+		<item>Tradicional a Simplificado</item>
+		<item>Simplificado a Tradicional</item>
 	</string-array>
 
 	<string-array name="system_typefaces">
-		<item>Default font</item>
-		<item>Serif font</item>
-		<item>Monospaced font</item>
+		<item>Fonte padrão</item>
+		<item>Fonte Serif</item>
+		<item>Fonte Monospaced</item>
 	</string-array>
 
 	<string-array name="read_tip">
-		<item>Blank</item>
-		<item>Heading</item>
-		<item>Time</item>
-		<item>Battery</item>
-		<item>Pages</item>
-		<item>Progress</item>
-		<item>Pages and progress</item>
-		<item>Book name</item>
-		<item>Time and Battery</item>
+		<item>Em branco</item>
+		<item>Título</item>
+		<item>Tempo</item>
+		<item>Bateria</item>
+		<item>Páginas</item>
+		<item>Progresso</item>
+		<item>Páginas e progresso</item>
+		<item>Nome do livro</item>
+		<item>Tempo e Bateria</item>
 	</string-array>
 
 	<string-array name="text_font_weight">
 		<item>Normal</item>
-		<item>Bold</item>
-		<item>Light</item>
+		<item>Negrito</item>
+		<item>Claro</item>
 	</string-array>
 
 	<string-array name="language">
-		<item>Auto</item>
-		<item>Simplified_Chinese</item>
-		<item>Traditional_Chinese</item>
-		<item>English</item>
+		<item>Autom.</item>
+		<item>Chinês simplificado</item>
+		<item>Chinês tradicional</item>
+		<item>Inglês</item>
 	</string-array>
 
 	<string-array name="rule_type">
-		<item>BookSource</item>
-		<item>RssSource</item>
-		<item>ReplaceRule</item>
+		<item>FonteLivro</item>
+		<item>FonteRSS</item>
+		<item>SubstituirRegra</item>
 	</string-array>
 
 </resources>
